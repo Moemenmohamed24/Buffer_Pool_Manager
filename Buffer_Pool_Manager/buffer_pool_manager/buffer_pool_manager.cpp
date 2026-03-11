@@ -1,4 +1,7 @@
-#include "Buffer_Pool_Manager/macros_f/macros.h"
+
+
+#include "Buffer_Pool_Manager/Buffer_Pool_Manager/macros_f/macros.h
+
 #include "Buffer_Pool_Manager/LRU-K_Replacer/lru_k_replacer.h" 
 #include "Buffer_Pool_Manager/common/config.h"
 #include "buffer_pool_manager.h"
@@ -311,131 +314,25 @@ namespace bustub
   // std::move transfers ownership of the WritePageGuard to the caller ReadPage
   // This is necessary because the lock inside the guard (unique_lock) is non-copyable
   }
-
-  auto BufferPoolManager::FlushPageUnsafe(short page_id) -> bool
-  {
-    
-    if(page_table_.find(page_id) == page_table_.end())
-    {
-      return false;
-    }
-    short frame_id; 
-    for(auto &[frame , Page_id] : page_table_)
-    {
-      if(Page_id == page_id)
-      {
-        frame_id = frame;
-        break;
-      }
-    }
-    
-    if(frames_data[frame_id].is_dirty_)
-    {
-        std::promise<bool> pirmisson;
-        DiskRequest Request ;
-        Request.is_write_ = true;
-        Request.page_id_ = page_id;
-        Request.callback_ = std::move(pirmisson);        
-        disk_scheduler_->Schedule(Request); 
-      
-      frames_data[frame_id].is_dirty_ =  false;    
-    } 
-    
-    return true;     
-  }
   
-  auto BufferPoolManager::FlushPage(short page_id) -> bool
-  {
-    
-    std::unique_lock<std::shared_mutex>latch(bpm_latch_);  
-    
-    if(page_table_.find(page_id) == page_table_.end())
-    {
-      return false;
-    }
-    short frame_id; 
-    for(auto &[frame , Page_id] : page_table_)
-    {
-      if(Page_id == page_id)
-      {
-        frame_id = frame;
-        break;
-      }
-    }
-    
-    if(frames_data[frame_id].is_dirty_)
-    {
-        std::promise<bool> pirmisson;
-        DiskRequest Request ;
-        Request.is_write_ = true;
-        Request.page_id_ = page_id;
-        Request.callback_ = std::move(pirmisson);        
-        disk_scheduler_->Schedule(Request); 
-        
-        frames_data[frame_id].is_dirty_ =  false;
-    
-    } 
-    
-    return true;
-  }
+  C:\Users\Mohamed Hamous\OneDrive\Desktop\Buffer_Pool_Manager\Buffer_Pool_Manager
   
   
-  void BufferPoolManager::FlushAllPagesUnsafe()
-  {
-    
-    
-    
-    for(auto &frame : frames_data)
-    {
-      if(frame.is_dirty_)
-      {
-          DiskRequest Request;
-          std::promise<bool> pirmisson;
-          auto page_id = page_table_[frame.frame_id_];          
-          Request.is_write_ = true;
-          Request.page_id_ = page_id;
-          Request.callback_ = std::move(pirmisson);        
-          disk_scheduler_->Schedule(Request);     
-          
-          frames_data[frame.frame_id_].is_dirty_ = false;
-      }
-    } 
-  }
-
-  void BufferPoolManager::FlushAllPages()
-  {
-    
-    std::unique_lock<std::shared_mutex>latch(bpm_latch_);  
-    
-    
-    
-    for(auto frame : frames_data)
-    {
-        DiskRequest Request;
-        auto page_id = page_table_[frame.frame_id_];        
-        std::promise<bool> pirmisson;
-        Request.is_write_ = true;
-        Request.page_id_ = page_id;
-        Request.callback_ = std::move(pirmisson);        
-        disk_scheduler_->Schedule(Request);     
-    }  
-    
   
-  }
   
-  auto BufferPoolManager::GetPinCount(int page_id)
-  {
-    std::shared_lock<std::shared_mutex> latch(bpm_latch_);
-    
-    
-    for(auto &[frame , Page_id]: frames_data)
-    {
-      if(Page_id == page_id)
-      {
-        return frames_data[frame].pin_count_.load();
-      }
-      
-    }   
-    return nullopt;  
-  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 };
+

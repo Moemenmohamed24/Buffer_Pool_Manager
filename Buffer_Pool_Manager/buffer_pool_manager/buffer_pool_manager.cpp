@@ -1,14 +1,9 @@
-
-
-#include "Buffer_Pool_Manager/Buffer_Pool_Manager/macros_f/macros.h
-
+#include "Buffer_Pool_Manager/macros_f/macros.h"
 #include "Buffer_Pool_Manager/LRU-K_Replacer/lru_k_replacer.h" 
-#include "common/config.h"
-#include "buffer_pool_manager/buffer_pool_manager.h"
-
-#include "Buffer_Pool_Manager\Disk_Scheduler\disk_Scheduler.h"
+#include "Buffer_Pool_Manager/common/config.h"
 #include "buffer_pool_manager.h"
-
+#include "Buffer_Pool_Manager/Disk_Scheduler/disk_Scheduler.h"
+#include "buffer_pool_manager.h"
 
 namespace bustub
 {
@@ -16,14 +11,13 @@ namespace bustub
   //BUSTUB_PAGE_SIZE = 4096 bytes = 4KB
   FrameHeader::FrameHeader(short int frame_id) : frame_id_(frame_id) , data_(BUSTUB_PAGE_SIZE,0) {Reset()} 
   
-  
+
   //.data() returns: The address of the first element in the vector That is, the pointer to the first byte of the page.
   //read only 
   auto FrameHeader::GetData() const -> const char*
   {
     return data_.data();
   }
-  
   
   auto FrameHeader::GetDataMut() -> char *
   {
@@ -39,7 +33,6 @@ namespace bustub
     is_dirty_ = false;
     
   }
-  
   
   BufferPoolManager::BufferPoolManager(int num_frames,DiskManager *disk_manager,LogManager *log_manager = nullptr) :
       
@@ -78,7 +71,7 @@ namespace bustub
   
   auto BufferPoolManager::size() const -> size_t {return num_frames};
   
-
+  
   short BufferPoolManager::NewPage()
   {
     FrameHeader frameHeader;
@@ -101,7 +94,7 @@ namespace bustub
       } 
       
       //get old_page_id that that have accuntability of frame_id_ in buffer bool  
-      int old_page_id = page_table_[frame_id_].;
+      int old_page_id = page_table_[frame_id_];
       
       //useing frame_id_ in frames_data that contains all matadata in buffer bool  for each frame_id
       if(frames_data[frame_id_].is_dirty_())
@@ -124,8 +117,8 @@ namespace bustub
       
       
       //update page_table_;
-      page_table_[new_page_id] = frame_id_;
-      
+      page_table_[frame_id_] = new_page_id;
+      frame_id_
       replacer_->RecordAccess();
       replacer_->SetEvictable(frame_id_,false);
       
@@ -150,10 +143,9 @@ namespace bustub
     
     return new_page_id;
   }
-
+  
   bool BufferPoolManager::DeletePage(short page_id)
   {
-    
     
     if(page_table_.find(page_table_) == page_table_.end())
     {
@@ -165,12 +157,10 @@ namespace bustub
     
     short frame_id = frames_data[page_id];
     
-    
     if(frames_data[frame_id].pin_count_ > 0)
     {
       return false; 
     }
-    
     
     LRUKReplacer LRU_K_Replacer;
     
@@ -189,8 +179,7 @@ namespace bustub
     return true;
   }
   
-  auto BufferPoolManager::CheckedWritePage(short page_id /*, AccessType access_type*/) -> std::optional<WritePageGuard>
-
+  auto BufferPoolManager::CheckedWritePage(short page_id /*, AccessType access_type*/) -> std::optional<WritePageGuard>  
   {
   
     FrameHeader frameHeader;
@@ -221,8 +210,6 @@ namespace bustub
       frames_data[free_frame].frame_id_ = free_frame;
       frames_data[free_frame].is_dirty_ = false;
       
-      
-      
     }
     else
     {
@@ -243,17 +230,12 @@ namespace bustub
     
     return WritePageGuard(page_id,frames_data[free_frame],bpm_latch_,disk_scheduler_,replacer_);
   }
-  auto BufferPoolManager::CheckedReadPage(short page_id, /*, AccessType access_type*/) -> std::optional<ReadPageGuard>
+  
+  auto BufferPoolManager::CheckedReadPage(short page_id) -> std::optional<ReadPageGuard>
   {
     
-    
-    FrameHeader frameHeader;  
-    
+    FrameHeader frameHeader;      
     std::shared_lock<std::shared_mutex>latch(*bpm_latch_);
-    
-    
-    
-    
     
     size_t free_frame;
     if(page_table_.find(page_id) != page_table_.end())
@@ -277,8 +259,6 @@ namespace bustub
       frames_data[free_frame].frame_id_ = free_frame;
       frames_data[free_frame].is_dirty_ = false;
       
-      
-      
     }
     else
     {
@@ -297,15 +277,12 @@ namespace bustub
       
     }  
     
-    
-    
     return  ReadPageGuard(page_id,frames_data[free_frame],bpm_latch_,disk_scheduler_,replacer_);
   }
-  
-  auto BufferPoolManager::WritePage(short page_id, /*, AccessType access_type*/) -> WritePageGuard
+
+  auto BufferPoolManager::WritePage(short page_id) -> WritePageGuard
   {
-  
-  auto guard_opt = CheckedWritePage(page_id);
+    auto guard_opt = CheckedWritePage(page_id);
   
   if(!guard_opt.has_value())
   {
@@ -318,8 +295,7 @@ namespace bustub
   // std::move transfers ownership of the WritePageGuard to the caller WritePage
 // This is necessary because the lock inside the guard (unique_lock) is non-copyable
   }
-  
-  
+
   auto BufferPoolManager::ReadPage(short page_id) -> ReadPageGuard
   {
     auto guard_opt = CheckedReadPage(page_id);
@@ -335,24 +311,131 @@ namespace bustub
   // std::move transfers ownership of the WritePageGuard to the caller ReadPage
   // This is necessary because the lock inside the guard (unique_lock) is non-copyable
   }
+
+  auto BufferPoolManager::FlushPageUnsafe(short page_id) -> bool
+  {
+    
+    if(page_table_.find(page_id) == page_table_.end())
+    {
+      return false;
+    }
+    short frame_id; 
+    for(auto &[frame , Page_id] : page_table_)
+    {
+      if(Page_id == page_id)
+      {
+        frame_id = frame;
+        break;
+      }
+    }
+    
+    if(frames_data[frame_id].is_dirty_)
+    {
+        std::promise<bool> pirmisson;
+        DiskRequest Request ;
+        Request.is_write_ = true;
+        Request.page_id_ = page_id;
+        Request.callback_ = std::move(pirmisson);        
+        disk_scheduler_->Schedule(Request); 
+      
+      frames_data[frame_id].is_dirty_ =  false;    
+    } 
+    
+    return true;     
+  }
   
-  C:\Users\Mohamed Hamous\OneDrive\Desktop\Buffer_Pool_Manager\Buffer_Pool_Manager
+  auto BufferPoolManager::FlushPage(short page_id) -> bool
+  {
+    
+    std::unique_lock<std::shared_mutex>latch(bpm_latch_);  
+    
+    if(page_table_.find(page_id) == page_table_.end())
+    {
+      return false;
+    }
+    short frame_id; 
+    for(auto &[frame , Page_id] : page_table_)
+    {
+      if(Page_id == page_id)
+      {
+        frame_id = frame;
+        break;
+      }
+    }
+    
+    if(frames_data[frame_id].is_dirty_)
+    {
+        std::promise<bool> pirmisson;
+        DiskRequest Request ;
+        Request.is_write_ = true;
+        Request.page_id_ = page_id;
+        Request.callback_ = std::move(pirmisson);        
+        disk_scheduler_->Schedule(Request); 
+        
+        frames_data[frame_id].is_dirty_ =  false;
+    
+    } 
+    
+    return true;
+  }
   
   
+  void BufferPoolManager::FlushAllPagesUnsafe()
+  {
+    
+    
+    
+    for(auto &frame : frames_data)
+    {
+      if(frame.is_dirty_)
+      {
+          DiskRequest Request;
+          std::promise<bool> pirmisson;
+          auto page_id = page_table_[frame.frame_id_];          
+          Request.is_write_ = true;
+          Request.page_id_ = page_id;
+          Request.callback_ = std::move(pirmisson);        
+          disk_scheduler_->Schedule(Request);     
+          
+          frames_data[frame.frame_id_].is_dirty_ = false;
+      }
+    } 
+  }
+
+  void BufferPoolManager::FlushAllPages()
+  {
+    
+    std::unique_lock<std::shared_mutex>latch(bpm_latch_);  
+    
+    
+    
+    for(auto frame : frames_data)
+    {
+        DiskRequest Request;
+        auto page_id = page_table_[frame.frame_id_];        
+        std::promise<bool> pirmisson;
+        Request.is_write_ = true;
+        Request.page_id_ = page_id;
+        Request.callback_ = std::move(pirmisson);        
+        disk_scheduler_->Schedule(Request);     
+    }  
+    
   
+  }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  auto BufferPoolManager::GetPinCount(int page_id)
+  {
+    std::shared_lock<std::shared_mutex> latch(bpm_latch_);
+    
+    
+    for(auto &[frame , Page_id]: frames_data)
+    {
+      if(Page_id == page_id)
+      {
+        return frames_data[frame].pin_count_.load();
+      }
+      
+    }   
+    return nullopt;  
+  }
 };

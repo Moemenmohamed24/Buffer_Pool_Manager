@@ -20,9 +20,9 @@
 
 #include "common/config.h"
 #include "common/exception.h"
-#include "common/logger.h
+#include "common/logger.h"
 
-#include "Buffer_Pool_Manager/disk_manager/disk_manager.h"
+#include "disk_manager.h"
 
 namespace bustub {
 

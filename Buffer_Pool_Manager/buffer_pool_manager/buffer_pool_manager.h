@@ -13,7 +13,7 @@
 #include "Buffer_Pool_Manager/Disk_Scheduler/disk_Scheduler.h"
 
 #include "recovery/log_manager.h"
-#include "storage/page/page.h"
+#include "storage_page\page.h"
 
 
 namespace bustub 
@@ -104,7 +104,7 @@ namespace bustub
   void FlushAllPages();
   
   //returned the number of pin in specific page
-  auto GetPinCount(); 
+  auto GetPinCount(int page_id) -> std::optional<int>; 
   
   
   private:
@@ -125,8 +125,9 @@ namespace bustub
   //It is used to quickly find the frame_id using the page_id from the page_table, 
   //so that if it exists, it can be retrieved and used to search in frames_data for its information.
   std::unordered_map<short,int>page_table_;
+  //short = frame -> key , int = id page -> value
   
-  
+
   //A list of empty frames ready for use.  
   //If there is a free frame, use it directly without eviction.
   std::list<short>free_frames_;
@@ -135,7 +136,7 @@ namespace bustub
   
   std::shared_ptr<DiskScheduler> disk_scheduler_;
   
-  
+  //LogManager *log_manager_ __attribute__((__unused__));
   
   
   };

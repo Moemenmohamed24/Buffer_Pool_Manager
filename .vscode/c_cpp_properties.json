@@ -4,7 +4,8 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager"
+                "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager",
+                "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\common"
             ],
             "defines": [
                 "_DEBUG",

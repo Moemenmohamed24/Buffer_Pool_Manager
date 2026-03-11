@@ -8,7 +8,7 @@
 #include <thread>  // NOLINT
 #include <vector>
 #include "commonn/channel.h"
-#include "Buffer_Pool_Manager/disk_manager/disk_manager.h"
+#include "disk_manager/disk_manager.h"
 
 namespace bustub {
 

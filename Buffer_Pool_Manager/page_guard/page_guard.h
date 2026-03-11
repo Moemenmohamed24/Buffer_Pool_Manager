@@ -1,8 +1,13 @@
 #include <memory>
 #include <mutex>
 #include "Buffer_Pool_Manager/Disk_Scheduler/disk_Scheduler.h"
-#include "arc_replacer_f/arc_replacer.h"
+#include "Buffer_Pool_Manager/LRU-K_Replacer/lru_k_replacer.h"
 
+
+
+#include "buffer_pool_manager\buffer_pool_manager.h"
+#include "Disk_Scheduler\disk_Scheduler.h"
+#include "page_guard\page_guard.h"
 
 class FrameHeader;
 namespace bustub {

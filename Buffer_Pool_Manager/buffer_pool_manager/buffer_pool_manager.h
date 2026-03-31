@@ -33,7 +33,7 @@ namespace bustub
   
   public:
   FrameHeader(short int frame_id);
-  
+  FrameHeader();
   private:
   
   
@@ -45,7 +45,7 @@ namespace bustub
   
   
   //number of frame in Buffer_bool or brief The frame ID / index of the frame this header represents.
-  const int frame_id_;
+  int frame_id_;
   
   
   //make exclusive lock and one thread in write case , make shared lock thread in read case based on the genaral case read or wirte 
@@ -68,14 +68,17 @@ namespace bustub
   
   class BufferPoolManager 
   {
+  FrameHeader frameHeader;
+  LRUKReplacer lRUKReplacer;
   
-  BufferPoolManager(int num_frames,DiskManager *disk_manager,LogManager *log_manager = nullptr)
+  
+  BufferPoolManager(int num_frames,DiskManager *disk_manager,LogManager *log_manager = nullptr);
   
   ~BufferPoolManager();
   
   
   //return number of frame in bufferbool
-  int size();
+  size_t size();
   
   short NewPage();
   
@@ -109,7 +112,7 @@ namespace bustub
   
   private:
   
-  const int num_frames_;
+  const size_t num_frames_;
   
   std::atomic<short>next_page_id_; 
   
@@ -119,8 +122,8 @@ namespace bustub
   
   
   //matadata of the page , each frame has Page data  pin count  dirty flag  page_id
-  std::vector<FrameHeader> frames_data;
-  
+  std::vector<std::shared_ptr<FrameHeader>> frames_data;
+  //the deal with parameter be with -> to get paramater because frames_data became a pointer because shared_ptr
   
   //It is used to quickly find the frame_id using the page_id from the page_table, 
   //so that if it exists, it can be retrieved and used to search in frames_data for its information.
@@ -136,7 +139,7 @@ namespace bustub
   
   std::shared_ptr<DiskScheduler> disk_scheduler_;
   
-  //LogManager *log_manager_ __attribute__((__unused__));
+  LogManager *log_manager_ __attribute__((__unused__));
   
   
   };

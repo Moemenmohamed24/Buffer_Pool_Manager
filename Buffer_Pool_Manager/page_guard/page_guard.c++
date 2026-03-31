@@ -10,9 +10,9 @@
 namespace bustub {
   
   
-  ReadPageGuard::ReadPageGuard(short int page_id,std::shared_ptr<FrameHeader> frame,std::shared_ptr<std::mutex> bpm_latch,
+  ReadPageGuard::ReadPageGuard(short int page_id,std::shared_ptr<FrameHeader> frame,std::shared_ptr<std::shared_mutex> bpm_latch,
     std::shared_ptr<DiskScheduler>disk_scheduler,std::shared_ptr<LRUKReplacer>replacer) 
-      :page_id_(page_id), 
+      page_id_(page_id), 
       frame_(std::move(frame)),
       bpm_latch_(std::move(bpm_latch)),
       disk_scheduler_(std::move(disk_scheduler)),
@@ -93,7 +93,7 @@ namespace bustub {
   
   
   WritePageGuard::WritePageGuard(short int page_id, std::shared_ptr<FrameHeader> frame,
-                                std::shared_ptr<LRUKReplacer> replacer, std::shared_ptr<std::mutex> bpm_latch,
+                                std::shared_ptr<LRUKReplacer> replacer, std::shared_ptr<std::shared_mutex> bpm_latch,
                                 std::shared_ptr<DiskScheduler> disk_scheduler)
   
   

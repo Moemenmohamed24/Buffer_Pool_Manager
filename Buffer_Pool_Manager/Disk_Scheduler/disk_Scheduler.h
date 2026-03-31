@@ -34,7 +34,7 @@ class DiskScheduler
   public:
   
   DiskScheduler(DiskManager *disk_manager);
-  
+  DiskScheduler();
   ~DiskScheduler();
   
   
@@ -50,7 +50,7 @@ class DiskScheduler
   
   
   
-  void DeallocatePage(short int page_id) { disk_manager->DeletePage(page_id);} 
+  void DeallocatePage(short int page_id) { disk_manager_->DeletePage(page_id);} 
   
   
   

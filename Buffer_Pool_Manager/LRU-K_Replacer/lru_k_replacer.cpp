@@ -6,7 +6,7 @@
 namespace bustub {
 
 LRUKReplacer::LRUKReplacer(short int num_frames) 
-    : replacer_size_(0), K_(k) {}
+    : replacer_size_(0) {}
 
 
 auto LRUKReplacer::Evict() -> std::optional<int> {

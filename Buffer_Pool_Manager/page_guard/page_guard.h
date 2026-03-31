@@ -2,12 +2,9 @@
 #include <mutex>
 #include "Buffer_Pool_Manager/Disk_Scheduler/disk_Scheduler.h"
 #include "Buffer_Pool_Manager/LRU-K_Replacer/lru_k_replacer.h"
-
-
-
 #include "buffer_pool_manager\buffer_pool_manager.h"
 #include "Disk_Scheduler\disk_Scheduler.h"
-#include "page_guard\page_guard.h"
+
 
 class FrameHeader;
 namespace bustub {
@@ -62,9 +59,9 @@ namespace bustub {
   
   ~ReadPageGuard();
   
-  private:
+  public:
   //private Because: Creating a Guard requires using BufferPoolManagere
-  ReadPageGuard(short int page_id,std::shared_ptr<FrameHeader> frame_,std::shared_ptr<std::mutex> bpm_latch,
+  ReadPageGuard(short int page_id,std::shared_ptr<FrameHeader>frame_,std::shared_ptr<std::shared_mutex> bpm_latch,
     std::shared_ptr<DiskScheduler>disk_scheduler,std::shared_ptr<LRUKReplacer>replacer_);
   
   //use in notation in Flush and Drop 
@@ -85,7 +82,7 @@ namespace bustub {
   std::shared_ptr<DiskScheduler>disk_scheduler_; 
   
   
-  std::shared_ptr<LRUKReplacer>replacer_
+  std::shared_ptr<LRUKReplacer>replacer_;
   
   bool is_valid_{false};
 };
@@ -147,9 +144,9 @@ namespace bustub {
   
   ~WritePageGuard();
   
-  private:
+  public:
   
-  WritePageGuard(short int page_id,std::shared_ptr<FrameHeader> frame_,std::shared_ptr<std::mutex> bpm_latch,
+  WritePageGuard(short page_id,std::shared_ptr<FrameHeader> frame_,std::shared_ptr<shared_mutex>bpm_latch,
   std::shared_ptr<DiskScheduler>disk_scheduler,std::shared_ptr<LRUKReplacer>replacer_);
   
   
@@ -171,7 +168,7 @@ namespace bustub {
   std::shared_ptr<DiskScheduler>disk_scheduler_; 
   
   
-  std::shared_ptr<LRUKReplacer>replacer_
+  std::shared_ptr<LRUKReplacer>replacer_;
   
   //this is flag of the validation of guard  
   bool is_valid_{false};

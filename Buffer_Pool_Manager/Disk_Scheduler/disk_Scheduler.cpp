@@ -12,7 +12,7 @@ namespace bustub {
   {
     
     
-    background_thread_.emplace([this] {StartWorkerThread()} ;);
+    background_thread_.emplace([this] {StartWorkerThread();});
     
     //or background_thread_ = std::thread() but emplace faster and do not make copy
     //[this] beacuse thread want object that  StartWorkerThread work in it 
@@ -29,7 +29,7 @@ namespace bustub {
   
   void DiskScheduler::Schedule(DiskRequest &diskRequest)
   {
-    request_queue_.Put(std::mov(diskRequest));
+    request_queue_.Put(std::move(diskRequest));
   }  
   // mov:-> make Treat this object as something we can move from, not copy
   // and we usd mov becuase promise non-copyable , mov allow transfer all data from object to another
@@ -51,7 +51,7 @@ namespace bustub {
       break;
       
       //This gives me a copy of the value inside the optional, if it exists.
-      DiskRequest disk_Request = std::mov(reguest_object.value());
+      DiskRequest disk_Request = std::move(reguest_object.value());
       
       if(disk_Request.is_write_)
       {

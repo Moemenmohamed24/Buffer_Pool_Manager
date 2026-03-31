@@ -23,6 +23,7 @@ class LRUNode
 
 class LRUKReplacer
 {
+  public:
   //num_frame size of the main buffer
   LRUKReplacer();
   LRUKReplacer(short int num_frame );

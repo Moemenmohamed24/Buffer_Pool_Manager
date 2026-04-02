@@ -12,7 +12,7 @@
 #include "common/config.h"
 #include "Buffer_Pool_Manager/Disk_Scheduler/disk_Scheduler.h"
 
-#include "recovery/log_manager.h"
+#include "recovery\log_manager.h"
 #include "storage_page\page.h"
 
 

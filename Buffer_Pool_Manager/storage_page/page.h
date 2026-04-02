@@ -17,7 +17,7 @@
 #include <vector>
 
 #include "common/config.h"
-#include "Rwlatch\rwlatch.h"
+#include "Rwlatch/rwlatch.h"
 
 namespace bustub {
 

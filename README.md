@@ -35,16 +35,21 @@ Implement page replacement and disk scheduling mechanisms
 - SetEvictable(frame_id, bool)
 - Size()
 
-<img width="502" height="467" alt="_مخطط _ drawio" src="https://github.com/user-attachments/assets/016b16c6-8f34-40b7-9b22-ab5720b3781f" />
+
+<img width="502" height="467" alt="_مخطط دون اسم_ drawio4" src="https://github.com/user-attachments/assets/b6c0054b-cbdb-4c43-a6ee-8ef6604df2a2" />
+
+
 
 #  2 ) Disk Scheduler
 
-Responsible for managing disk I/O requests asynchronously.
+**Responsibilities**
+- starting to make operation like read or write
+- Manage disk I/O requests asynchronously using queuing 
+- Use a background worker thread to process queued requests
+- Handle read/write operations in a thread-safe way
+- Provide synchronization between threads using promises/futures
 
-Uses a background worker thread
-Processes read/write requests using a queue
-Utilizes std::promise and std::future for synchronization
-Ensures thread-safe communication between components
+
 
 #  3 )  Buffer Pool Manager
 

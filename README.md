@@ -35,7 +35,7 @@ Implement page replacement and disk scheduling mechanisms
 - SetEvictable(frame_id, bool)
 - Size()
 
-![Uploading _مخطط _.drawio.png…]()
+<img width="502" height="467" alt="_مخطط _ drawio" src="https://github.com/user-attachments/assets/016b16c6-8f34-40b7-9b22-ab5720b3781f" />
 
 #  2 ) Disk Scheduler
 

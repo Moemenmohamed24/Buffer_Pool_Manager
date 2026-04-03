@@ -18,26 +18,40 @@ Implement page replacement and disk scheduling mechanisms
 
 
 
+
 # Main Components
-1 )  LRU-K Replacement Policy
+# 1 )  LRU-K Replacement Policy
 
-Implements the LRU-K algorithm to decide which pages to evict from memory.
+**Responsibilities**
+- Track page access history
+- Compute backward k-distance
+- Evict the frame with largest backward distance
+- Handle frames with fewer than K accesses (+∞ priority)
 
-Tracks the history of page accesses
-Computes backward k-distance
-Evicts the page with the largest backward distance
-Handles pages with fewer than K accesses using +∞ priority
+**Internal Functions (not shown in diagram)**
+- RecordAccess(frame_id)
+- Evict()
+- Remove(frame_id)
+- SetEvictable(frame_id, bool)
+- Size()
 
-2 ) Disk Scheduler
 
-Responsible for managing disk I/O requests asynchronously.
+<img width="502" height="467" alt="_مخطط دون اسم_ drawio4" src="https://github.com/user-attachments/assets/b6c0054b-cbdb-4c43-a6ee-8ef6604df2a2" />
 
-Uses a background worker thread
-Processes read/write requests using a queue
-Utilizes std::promise and std::future for synchronization
-Ensures thread-safe communication between components
 
-3 )  Buffer Pool Manager
+
+#  2 ) Disk Scheduler
+
+**Responsibilities**
+- starting to make operation like read or write
+- Manage disk I/O requests asynchronously using queuing 
+- Use a background worker thread to process queued requests
+- Handle read/write operations in a thread-safe way
+- Provide synchronization between threads using promises/futures
+
+
+
+#  3 )  Buffer Pool Manager
 
 The core of the project.
 

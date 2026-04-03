@@ -10,7 +10,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "recovery\log_manager.h"
+#include "recovery/log_manager.h"
 
 namespace bustub {
 /*

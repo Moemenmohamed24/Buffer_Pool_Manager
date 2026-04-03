@@ -16,7 +16,7 @@
 #include <string>
 
 #include "common/config.h"
-#include "storage/table/tuple.h"
+#include "table/tuple.h"
 
 namespace bustub {
 /** The type of the log record. */

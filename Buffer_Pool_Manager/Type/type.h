@@ -15,7 +15,7 @@
 #include <cstdint>
 #include <string>
 
-//#include "type_id.h"
+#include "type_id.h"
 
 namespace bustub {
 

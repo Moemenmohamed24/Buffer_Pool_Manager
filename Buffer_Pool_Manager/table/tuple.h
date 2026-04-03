@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-#include "catalog\schema.h"
+#include "catalog/schema.h"
 #include "common/config.h"
 #include "common/rid.h"
 #include "type/value.h"

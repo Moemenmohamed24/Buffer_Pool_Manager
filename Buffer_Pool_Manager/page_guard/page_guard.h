@@ -37,9 +37,9 @@ namespace bustub {
   
   
   
-  auto GetPageId() const;
+  auto GetPageId() const -> page_id_t;
   //const this meaning reading only
-  auto GetData() const -> char* ;
+  auto GetData() const -> const char* ;
   
   //template to match any type
   template<class T> 
@@ -75,7 +75,7 @@ namespace bustub {
   
   
   
-  std::shared_ptr<std::mutex> bpm_latch_;
+  std::shared_ptr<std::shared_mutex> bpm_latch_;
   
   
   
@@ -107,7 +107,7 @@ namespace bustub {
   
   //move wonership from that to a new object is created
   //don't make copy 
-  WritePageGuard(const WritePageGuard&&that) = noexcept;  
+  WritePageGuard(const WritePageGuard&&that)  noexcept;  
   
   
   
@@ -115,9 +115,9 @@ namespace bustub {
   auto operator = (const WritePageGuard&&that) noexcept -> WritePageGuard &;  
   //noexcept -> WritePageGuard & = return reference this
   
-  auto GetPageId() const;
+  auto GetPageId() const -> page_id_t;
   //const this meaning reading only
-  auto GetData() const -> char* ;
+  auto GetData() const -> const char* ;
   
   
   
@@ -132,7 +132,7 @@ namespace bustub {
   auto GetDataMut() -> char *;
   
   template<class T>
-  auto AsMut() const -> const -> T*
+  auto AsMut() -> T*
   {
     return reinterpret_cast<T *>(GetDataMut());
   }

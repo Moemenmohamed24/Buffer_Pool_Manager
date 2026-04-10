@@ -18,7 +18,7 @@ namespace bustub {
 
 // Interface of a memory pool that can quickly allocate chunks of memory
 class AbstractPool {
- public:
+  public:
   // Virtual destructor
   virtual ~AbstractPool() = default;
 

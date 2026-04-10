@@ -101,13 +101,25 @@ namespace bustub
       //useing frame_id_ in frames_data that contains all matadata in buffer bool  for each frame_id
       if(frames_data[free_frame]->is_dirty_)
       {
-        std::promise<bool> pirmisson;
+        DiskScheduler diskScheduler;
+        //loss data
+
+        //promise → will be sent to the worker thread
+        //future → with you
+        auto promise  = CreatePromise();
+        auto future = promise.get_future();
         DiskRequest Request ;
         Request.is_write_ = true;
         Request.page_id_ = old_page_id;
-        Request.callback_ = std::move(pirmisson);        
+        Request.callback_ = std::move(promise);        
         disk_scheduler_->Schedule(Request);
-      }
+        
+        //I won't continue until the disk operation is finished because the disk write might not be complete yet.
+        //`future.get() = synchronization point`
+        future.get();
+        //If the value is not yet ready → waits.
+        //If the set_value is ready → returns the value immediately.
+      } 
       
       BufferPoolManager::DeletePage(old_page_id);
       

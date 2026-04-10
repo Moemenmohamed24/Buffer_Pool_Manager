@@ -63,6 +63,7 @@ namespace bustub {
       }
       
       //this is indication to the process is ended
+      //This says: "I have finished the I/O operation."
       disk_Request.callback_.set_value(true);
       
       

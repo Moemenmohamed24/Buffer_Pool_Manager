@@ -25,7 +25,8 @@ struct DiskRequest
   //use in one thread to returned the value when it fineshed the mission,
   //it uses to send the final value.
   std::promise<bool> callback_;
-  
+  //promise → will be sent to the worker thread
+  //future → with you
 };
 
 
@@ -46,6 +47,7 @@ class DiskScheduler
   using DiskSchedulerPromise  = std::promise<bool>;
   
                       //this is type of the return   
+                      //return { }; : return empty promise object , default initialization
   auto CreatePromise() -> DiskSchedulerPromise { return { };};
   
   

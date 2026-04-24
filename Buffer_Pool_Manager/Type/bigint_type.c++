@@ -9,15 +9,13 @@
 // Copyright (c) 2015-2025, Carnegie Mellon University Database Group
 //
 //
-//
-//<----------------BIGINT specifications------------------>
+//  
+////<----------------BIGINT specifications------------------>
 //
 // Supports arithmetic and comparison operations where operands may be of different types like ( BIGINT and INTEGER )
 // (TINYINT, SMALLINT, INTEGER, BIGINT, DECIMAL, or VARCHAR).
 // Automatically performs type coercion when necessary, validates ranges, handles NULL values,
 // and returns correctly typed and accurate results according to SQL semantics and rules.
-//
-//
 //
 //
 //

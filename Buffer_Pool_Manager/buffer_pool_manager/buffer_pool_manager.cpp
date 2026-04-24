@@ -12,7 +12,7 @@ namespace bustub
   //BUSTUB_PAGE_SIZE = 4096 bytes = 4KB
   FrameHeader::FrameHeader(short int frame_id) : frame_id_(frame_id) , data_(BUSTUB_PAGE_SIZE,0) {Reset();} 
   
-
+  
   //.data() returns: The address of the first element in the vector That is, the pointer to the first byte of the page.
   //read only 
   auto FrameHeader::GetData() const -> const char*

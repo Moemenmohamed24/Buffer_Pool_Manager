@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Buffer_Pool_Manager",
+    "\\Buffer_Pool_Manager\\buffer_pool_manager",
+    "\\Buffer_Pool_Manager\\disk_manager"
+  ],
+  "SelectedNode": "\\Buffer_Pool_Manager\\disk_manager",
+  "PreviewInSolutionExplorer": false
+}

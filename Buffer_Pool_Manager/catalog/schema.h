@@ -27,7 +27,7 @@ class Schema;
 using SchemaRef = std::shared_ptr<const Schema>;
 
 class Schema {
- public:
+  public:
   explicit Schema(const std::vector<Column> &columns);
 
   static auto CopySchema(const Schema *from, const std::vector<uint32_t> &attrs) -> Schema {
@@ -94,7 +94,7 @@ class Schema {
 
   auto ToString(bool simplified = true) const -> std::string;
 
- private:
+  private:
   /** Fixed-length column size, i.e. the number of bytes used by one tuple. */
   uint32_t length_;
 

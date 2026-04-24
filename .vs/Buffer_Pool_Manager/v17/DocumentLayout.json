@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "buffer_pool_manager.h",
+              "DocumentMoniker": "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h",
+              "RelativeDocumentMoniker": "Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h",
+              "ToolTip": "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h",
+              "RelativeToolTip": "Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-24T18:50:40.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "buffer_pool_manager.cpp",
+              "DocumentMoniker": "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp",
+              "RelativeDocumentMoniker": "Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp",
+              "ToolTip": "C:\\Users\\Mohamed Hamous\\OneDrive\\Desktop\\Buffer_Pool_Manager\\Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp",
+              "RelativeToolTip": "Buffer_Pool_Manager\\buffer_pool_manager\\buffer_pool_manager.cpp",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAABwAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-24T18:50:38.605Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

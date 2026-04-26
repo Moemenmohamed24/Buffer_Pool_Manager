@@ -21,7 +21,7 @@
 namespace bustub {
 
 class RID {
- public:
+  public:
   /** The default constructor creates an invalid RID! */
   RID() = default;
 

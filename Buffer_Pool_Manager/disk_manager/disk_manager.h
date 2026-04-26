@@ -91,7 +91,7 @@ class DiskManager {
 
   /** @brief returns the size of disk space in use */
   auto GetDbFileSize() -> size_t {
-    auto file_size = GetFileSize(db_file_name_);
+    auto file_size = GetFileSize(db_file_name_.string());
     if (file_size < 0) {
       LOG_DEBUG("I/O error: Fail to get db file size");
       return -1;

@@ -106,7 +106,7 @@ namespace bustub
 
         //promise → will be sent to the worker thread
         //future → with you
-        auto promise  = CreatePromise();
+        auto promise  = diskScheduler.CreatePromise();
         auto future = promise.get_future();
         DiskRequest Request ;
         Request.is_write_ = true;

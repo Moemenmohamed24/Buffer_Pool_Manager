@@ -60,7 +60,7 @@ DiskManager::DiskManager(const std::filesystem::path &db_file) : db_file_name_(d
 
   // Initialize the database file.
   std::filesystem::resize_file(db_file, (page_capacity_ + 1) * BUSTUB_PAGE_SIZE);
-  assert(static_cast<size_t>(GetFileSize(db_file_name_)) >= page_capacity_ * BUSTUB_PAGE_SIZE);
+  assert(static_cast<size_t>(GetFileSize(db_file_name_.string())) >= page_capacity_ * BUSTUB_PAGE_SIZE);
 
   buffer_used = nullptr;
 }
@@ -119,7 +119,7 @@ void DiskManager::ReadPage(page_id_t page_id, char *page_data) {
   }
 
   // Check if we have read beyond the file length.
-  int file_size = GetFileSize(db_file_name_);
+  int file_size = GetFileSize(db_file_name_.string());
   if (file_size < 0) {
     LOG_DEBUG("I/O error: Fail to get db file size");
     return;
@@ -211,7 +211,7 @@ void DiskManager::WriteLog(char *log_data, int size) {
  * @return true if the read was successful, false otherwise
  */
 auto DiskManager::ReadLog(char *log_data, int size, int offset) -> bool {
-  if (offset >= GetFileSize(log_file_name_)) {
+  if (offset >= GetFileSize(log_file_name_.string())) {
     // LOG_DEBUG("end of log file");
     // LOG_DEBUG("file size is %d", GetFileSize(log_name_));
     return false;

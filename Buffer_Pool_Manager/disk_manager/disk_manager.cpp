@@ -108,7 +108,7 @@ void DiskManager::WritePage(page_id_t page_id, const char *page_data) {
 /**
  * Read the contents of the specified page into the given memory area
  */
-void DiskManager::ReadPage(page_id_t page_id, char *page_data) {
+void DiskManager::ReadPage(page_id_t page_id,const char *page_data) {
   std::scoped_lock scoped_db_io_latch(db_io_latch_);
   size_t offset;
   if (pages_.find(page_id) != pages_.end()) {
@@ -133,7 +133,7 @@ void DiskManager::ReadPage(page_id_t page_id, char *page_data) {
 
   // Set the read cursor to the page offset.
   db_io_.seekg(offset);
-  db_io_.read(page_data, BUSTUB_PAGE_SIZE);
+  db_io_.read(const_cast<char*>(page_data), BUSTUB_PAGE_SIZE);
 
   if (db_io_.bad()) {
     LOG_DEBUG("I/O error while reading page %d", page_id);
@@ -146,7 +146,7 @@ void DiskManager::ReadPage(page_id_t page_id, char *page_data) {
     LOG_DEBUG("I/O error: Read page %d hit the end of file at offset %lu, missing %d bytes", page_id, offset,
               BUSTUB_PAGE_SIZE - read_count);
     db_io_.clear();
-    memset(page_data + read_count, 0, BUSTUB_PAGE_SIZE - read_count);
+    memset(const_cast<char*>(page_data) + read_count, 0, BUSTUB_PAGE_SIZE - read_count);
   }
 }
 

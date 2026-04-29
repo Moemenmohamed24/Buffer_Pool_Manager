@@ -15,7 +15,7 @@ namespace bustub
   
   //.data() returns: The address of the first element in the vector That is, the pointer to the first byte of the page.
   //read only 
-  auto FrameHeader::GetData() const -> const char*
+  auto FrameHeader::GetData() const ->const char*
   {
     return data_.data();
   }

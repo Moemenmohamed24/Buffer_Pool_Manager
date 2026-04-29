@@ -8,21 +8,6 @@
 //
 // Copyright (c) 2015-2025, Carnegie Mellon University Database Group
 //
-//
-//  
-////<----------------BIGINT specifications------------------>
-//
-// Supports arithmetic and comparison operations where operands may be of different types like ( BIGINT and INTEGER )
-// (TINYINT, SMALLINT, INTEGER, BIGINT, DECIMAL, or VARCHAR).
-// Automatically performs type coercion when necessary, validates ranges, handles NULL values,
-// and returns correctly typed and accurate results according to SQL semantics and rules.
-//
-//
-//
-//<----------------BIGINT Goals  Decumentations------------------>
-// Handles all BIGINT (int64) operations in BusTub, including arithmetic (+, -, *, /, %), comparisons, NULL handling, 
-// type casting, serialization/deserialization, 
-// and conversion to/from other SQL data types.   
 //===----------------------------------------------------------------------===//
 
 #include <cassert>
@@ -32,50 +17,50 @@
 
 #include "type/bigint_type.h"
 namespace bustub {
-#define BIGINT_COMPARE_FUNC(OP)                                           
-  switch (right.GetTypeId()) {                                            
-    case TypeId::TINYINT:                                                 
-      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int8_t>());    
-    case TypeId::SMALLINT:                                                
-      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int16_t>());   
-    case TypeId::INTEGER:                                                 
-      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int32_t>());   
-    case TypeId::BIGINT:                                                  
-      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int64_t>());   
-    case TypeId::DECIMAL:                                                 
-      return GetCmpBool(left.value_.bigint_ OP right.GetAs<double>());    
-    case TypeId::VARCHAR: {                                               
-      auto r_value = right.CastAs(TypeId::BIGINT);                        
-      return GetCmpBool(left.value_.bigint_ OP r_value.GetAs<int64_t>()); 
-    }                                                                     
-    default:                                                              
-      break;                                                              
+#define BIGINT_COMPARE_FUNC(OP)                                           \
+  switch (right.GetTypeId()) {                                            \
+    case TypeId::TINYINT:                                                 \
+      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int8_t>());    \
+    case TypeId::SMALLINT:                                                \
+      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int16_t>());   \
+    case TypeId::INTEGER:                                                 \
+      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int32_t>());   \
+    case TypeId::BIGINT:                                                  \
+      return GetCmpBool(left.value_.bigint_ OP right.GetAs<int64_t>());   \
+    case TypeId::DECIMAL:                                                 \
+      return GetCmpBool(left.value_.bigint_ OP right.GetAs<double>());    \
+    case TypeId::VARCHAR: {                                               \
+      auto r_value = right.CastAs(TypeId::BIGINT);                        \
+      return GetCmpBool(left.value_.bigint_ OP r_value.GetAs<int64_t>()); \
+    }                                                                     \
+    default:                                                              \
+      break;                                                              \
   }  // SWITCH
 
-#define BIGINT_MODIFY_FUNC(METHOD, OP)                                    
-  switch (right.GetTypeId()) {                                            
-    case TypeId::TINYINT:                                                 
-      /* NOLINTNEXTLINE */                                                
-      return METHOD<int64_t, int8_t>(left, right);                        
-    case TypeId::SMALLINT:                                                
-      /* NOLINTNEXTLINE */                                                
-      return METHOD<int64_t, int16_t>(left, right);                       
-    case TypeId::INTEGER:                                                 
-      /* NOLINTNEXTLINE */                                                
-      return METHOD<int64_t, int32_t>(left, right);                       
-    case TypeId::BIGINT:                                                  
-      /* NOLINTNEXTLINE */                                                
-      return METHOD<int64_t, int64_t>(left, right);                       
-    case TypeId::DECIMAL:                                                 
-      /* NOLINTNEXTLINE */                                                         
-      return Value(TypeId::DECIMAL, left.value_.bigint_ OP right.GetAs<double>()); 
-    case TypeId::VARCHAR: {                                                        
-      auto r_value = right.CastAs(TypeId::BIGINT);                                 
-      /* NOLINTNEXTLINE */                                                        
-      return METHOD<int64_t, int64_t>(left, r_value);                             
-    }                                                                             
-    default:                                                                       
-      break;                                                                       
+#define BIGINT_MODIFY_FUNC(METHOD, OP)                                             \
+  switch (right.GetTypeId()) {                                                     \
+    case TypeId::TINYINT:                                                          \
+      /* NOLINTNEXTLINE */                                                         \
+      return METHOD<int64_t, int8_t>(left, right);                                 \
+    case TypeId::SMALLINT:                                                         \
+      /* NOLINTNEXTLINE */                                                         \
+      return METHOD<int64_t, int16_t>(left, right);                                \
+    case TypeId::INTEGER:                                                          \
+      /* NOLINTNEXTLINE */                                                         \
+      return METHOD<int64_t, int32_t>(left, right);                                \
+    case TypeId::BIGINT:                                                           \
+      /* NOLINTNEXTLINE */                                                         \
+      return METHOD<int64_t, int64_t>(left, right);                                \
+    case TypeId::DECIMAL:                                                          \
+      /* NOLINTNEXTLINE */                                                         \
+      return Value(TypeId::DECIMAL, left.value_.bigint_ OP right.GetAs<double>()); \
+    case TypeId::VARCHAR: {                                                        \
+      auto r_value = right.CastAs(TypeId::BIGINT);                                 \
+      /* NOLINTNEXTLINE */                                                         \
+      return METHOD<int64_t, int64_t>(left, r_value);                              \
+    }                                                                              \
+    default:                                                                       \
+      break;                                                                       \
   }  // SWITCH
 
 BigintType::BigintType() : IntegerParentType(BIGINT) {}
@@ -351,4 +336,4 @@ auto BigintType::CastAs(const Value &val, const TypeId type_id) const -> Value {
   }
   throw Exception("bigint is not coercable to " + Type::TypeIdToString(type_id));
 }
-}  // namespace bustub
+}  // namespace bustub 

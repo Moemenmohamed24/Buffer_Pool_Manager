@@ -57,7 +57,7 @@ class DiskManager {
    * @param page_id id of the page
    * @param[out] page_data output buffer
    */
-  virtual void ReadPage(page_id_t page_id, char *page_data);
+  virtual void ReadPage(page_id_t page_id,const char *page_data);
 
   /**
    * Delete a page from the database file. Reclaim the disk space.

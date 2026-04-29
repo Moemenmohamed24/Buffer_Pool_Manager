@@ -161,7 +161,7 @@ namespace bustub {
   
   
   
-  std::shared_ptr<std::mutex> bpm_latch_;
+  std::shared_ptr<std::shared_mutex> bpm_latch_;
   
   
   

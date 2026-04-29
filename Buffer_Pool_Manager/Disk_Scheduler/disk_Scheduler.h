@@ -17,7 +17,7 @@ struct DiskRequest
   bool is_write_;
   
   
-   char* data;
+  const char* data;
   
   
   short int page_id_;
